@@ -1,6 +1,6 @@
 FROM python:3.9-slim-buster as build
 
-WORKDIR /opt/Scanner
+WORKDIR /opt/scanner
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -14,19 +14,8 @@ RUN apt-get update \
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY . /opt/Scanner
+COPY --chown=1001:1001 . /opt/scanner
 
-FROM python:3.9-slim-buster as release
-WORKDIR /opt/Scanner
-
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libffi6 \
-        libssl1.1 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY --chown=1001:1001 . /opt/Scanner
+RUN pip install --no-cache-dir -r requirements.txt
 
 
