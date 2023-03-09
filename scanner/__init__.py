@@ -8,8 +8,10 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 
+    
 app.config['SECRET_KEY'] = '3fd5f6f457adc67ee57d46373dc1b62d7d26a543'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://scanner:scanner@localhost/scanner'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://scanner:scanner@db/scanner'
+
 
 db = SQLAlchemy(app)
 
@@ -26,7 +28,7 @@ parser = ConfigParser()
 parser.read('config.ini')
 
 
-# def get_admin():
-#     return parser.get('APP','ADMINS')
+def get_admin():
+    return parser.get('APP','ADMINS')
 
 # # from automate_pentest import routes

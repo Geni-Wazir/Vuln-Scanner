@@ -12,8 +12,8 @@ services:
       - .:/opt/scanner
     environment:
       - FLASK_DEBUG=1
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
 
   nginx:
       image: nginx:stable
@@ -25,15 +25,15 @@ services:
       depends_on:
         - scanner
   
-  # db:
-  #   image: mariadb:10.4.12
-  #   restart: always
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=scanner
-  #     - MYSQL_USER=scanner
-  #     - MYSQL_PASSWORD=scanner
-  #     - MYSQL_DATABASE=scanner
-  #   volumes:
-  #     - .data/mysql:/var/lib/mysql
+  db:
+    image: mariadb:10.4.12
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=scanner
+      - MYSQL_USER=scanner
+      - MYSQL_PASSWORD=scanner
+      - MYSQL_DATABASE=scanner
+    volumes:
+      - .data/mysql:/var/lib/mysql
 
-  #   command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
