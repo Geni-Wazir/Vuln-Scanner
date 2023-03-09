@@ -1,7 +1,7 @@
-from flask import Flask
+from scanner import app
 
-server = Flask(__name__)
 
-@server.route('/')
+@app.route('/')
 def hello_world():
     return 'hello world!'
+

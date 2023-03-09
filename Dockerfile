@@ -14,8 +14,12 @@ RUN apt-get update \
 
 ENV PATH="/opt/venv/bin:$PATH"
 
+ENV FLASK_APP=./scanner/app.py
+
 COPY --chown=1001:1001 . /opt/scanner
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# ENTRYPOINT ["/opt/scanner/docker-entrypoint.sh"]
 
+ENTRYPOINT [ "flask", "run", "--host=0.0.0.0" ]
